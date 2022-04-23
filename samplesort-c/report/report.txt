@@ -1,0 +1,86 @@
+==============================================
+-- System Information (My Machine)
+----------------------------------------------
+OS: macOS Mojave
+CPU: 2.7 GHz Intel Core i7
+Cores: 8
+Memory: 16 GB
+
+
+==============================================
+-- System Information (CCIS SERVER)
+----------------------------------------------
+OS: CentOS 7.6 64 bit
+CPU: Xeon Gold 5118
+Cores: 12
+Memory: 196 GB
+
+
+==============================================
+-- Tests Locally
+----------------------------------------------
+# of threads   | avg. time  | parallel speedup
+        1      | 9.15       |       1.00
+        4      | 4.58       |       2.00
+        8      | 2.83       |       3.23
+
+Optimal parallel speedup is 9 (cores + 1)
+      
+        
+==============================================
+-- Tests on CCIS SERVER
+----------------------------------------------
+# of threads   | avg. time  | parallel speedup
+        1      | 15.86      |       1.00
+        4      | 13.19      |       1.21
+        8      | 5.04       |       3.15
+
+Optimal parallel speedup is 13 (cores + 1)
+        
+
+==============================================
+-- Paragraph
+----------------------------------------------
+- Result I got and why?
+- Answer: I got increase in speed on both
+local machine and the server with the
+increase of processes used in execution.
+This is reasonable as sorting is done in
+parallel on different parts of the input data,
+rather than on the whole data input.
+Additionally, the increase looks linear, as
+the speedup from 1 to 4 and from 4 to 8 are
+factors. In the assignment I used sort
+algorithm and improved on it by parallelizing
+the execution into different parts. Such
+technique, gave the possibility to decrease
+the runtime, while not changing the core
+algorithm. In the program we create threads,
+each of which sorts its portion of the array,
+and then outputs it to a file. To decide on 
+parts I created pivot points by sorting a 
+sample of the input data and choosing p-1 
+points. Then those points are used by 
+threads to find their location in the array.
+Overall, the assignment showed that
+technical properties of the program are as
+important as the theoretical background.
+
+
+- How do results compare to 
+the process / mmap version? Why?
+- Answer: The local run increased in speed
+On my Mac, however slightly decreased on
+Linux running server. This can be explained
+by high optimization of processes on Linux,
+that results in slight boost in speed.
+Overall, changes are not significant, 
+however possibility to use less memory 
+during runtime by implementing shared memory
+at stack is significant. Also, we used 
+mutex to create barrier, and it is more
+flexible tool for the task. Also, the new
+pprogram in theory should have significant
+Increase in runtime on Windows machine,
+Which is important when you are writing 
+Cross platform.
